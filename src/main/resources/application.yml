@@ -1,0 +1,7 @@
+spring:
+  datasource:
+    url: jdbc:postgresql://localhost:5432/cricketboard
+    username: ${DB_USERNAME}
+    password: ${DB_PASSWORD}
+  jpa.properties:
+    hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
