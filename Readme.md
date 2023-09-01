@@ -4,6 +4,17 @@
 - Git
 - OpenJDK 20
 - PostgreSQL 15.0
+- Colima
+
+## Install OpenJDK 20
+https://adoptium.net/en-GB/temurin/releases/?version=20&package=jdk&arch=aarch64&os=mac
+
+## Install Colima
+Colima is a container runtime and is needed for running integration tests using testcontainers
+```
+    brew install colima
+    brew install docker
+```
 
 ### Create Database
 Create a database with name `cricketboard`
@@ -29,3 +40,7 @@ Edit run configuration and add following environment variables
 ## To add flyway DB migrations
 Add file in db.migration folder with name `V1__<name>.sql`
 
+## Run tests using gradle
+```
+    ./gradlew test
+```

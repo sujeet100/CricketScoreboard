@@ -25,8 +25,14 @@ dependencies {
 	testImplementation("org.assertj:assertj-core:3.11.1")
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'org.springframework.boot:spring-boot-testcontainers'
+	testImplementation "org.testcontainers:postgresql:1.19.0"
 }
 
 tasks.named('test') {
 	useJUnitPlatform()
+}
+
+test {
+	environment "TESTCONTAINERS_DOCKER_SOCKET_OVERRIDE", "/var/run/docker.sock"
+	environment "DOCKER_HOST", "unix://${System.properties['user.home']}/.colima/default/docker.sock"
 }
