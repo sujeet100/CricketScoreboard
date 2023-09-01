@@ -1,4 +1,5 @@
 ## Cricket ScoreBoard
+[![Cricket ScoreBoard Build](https://github.com/sujitkamthe/cricket-scorecard/actions/workflows/gradle.yml/badge.svg?branch=main)](https://github.com/sujitkamthe/cricket-scorecard/actions/workflows/gradle.yml)
 
 ## Pre-Requisites
 - Git
