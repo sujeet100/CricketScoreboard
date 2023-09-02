@@ -25,7 +25,7 @@ public class ActivityService {
                 RunScoredActivity runScoredActivity = (RunScoredActivity) activity;
                 yield bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber(
                                 runScoredActivity.getMatchId(),
-                                runScoredActivity.getInningId(),
+                                runScoredActivity.getInningsId(),
                                 runScoredActivity.getOverNumber(),
                                 runScoredActivity.getBallNumber())
                         .map(bowl -> {

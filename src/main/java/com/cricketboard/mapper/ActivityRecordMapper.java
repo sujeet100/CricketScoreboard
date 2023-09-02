@@ -9,8 +9,6 @@ public class ActivityRecordMapper {
     public static com.cricketboard.model.Activity toActivityRecord(Activity activity) {
         return new com.cricketboard.model.Activity(
                 null,
-                activity.getMatchId(),
-                activity.getInningId(),
                 activity.getStartTime(),
                 activity.getEndTime(),
                 activity.getActivityType(),
@@ -23,6 +21,8 @@ public class ActivityRecordMapper {
             case RUN_SCORED -> {
                 RunScoredActivity runScoredActivity = (RunScoredActivity) activity;
                 return new RunScoredActivityDetails(
+                        runScoredActivity.getMatchId(),
+                        runScoredActivity.getInningsId(),
                         runScoredActivity.getOverNumber(),
                         runScoredActivity.getBallNumber(),
                         runScoredActivity.getRunsScored(),

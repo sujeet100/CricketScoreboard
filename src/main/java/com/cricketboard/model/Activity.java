@@ -20,12 +20,6 @@ public class Activity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
 
-    @NotNull
-    private Integer matchId;
-
-    @NotNull
-    private Integer inningsId;
-
     @Column(columnDefinition = "TIMESTAMP")
     private LocalDateTime startTime;
 

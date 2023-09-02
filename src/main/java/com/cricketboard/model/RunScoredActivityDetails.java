@@ -8,7 +8,8 @@ import lombok.Setter;
 @Setter
 @AllArgsConstructor
 public class RunScoredActivityDetails implements ActivityDetails {
-
+    private Integer MatchId;
+    private Integer InningsId;
     private Integer overNumber;
     private Integer ballNumber;
     private Integer runsScored;

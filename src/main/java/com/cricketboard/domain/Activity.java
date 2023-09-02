@@ -19,8 +19,6 @@ import java.time.LocalDateTime;
         @JsonSubTypes.Type(value = NewBowlActivity.class, name = "NEW_BOWL")
 })
 public abstract class Activity {
-    private Integer matchId;
-    private Integer inningId;
 
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd HH:mm:ss")
     private LocalDateTime startTime;
@@ -30,23 +28,13 @@ public abstract class Activity {
 
     private ActivityType activityType;
 
-    public Activity(Integer matchId, Integer inningId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType) {
-        this.matchId = matchId;
-        this.inningId = inningId;
+    public Activity(LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType) {
         this.startTime = startTime;
         this.endTime = endTime;
         this.activityType = activityType;
     }
 
     public Activity() {
-    }
-
-    public void setMatchId(Integer matchId) {
-        this.matchId = matchId;
-    }
-
-    public void setInningId(Integer inningId) {
-        this.inningId = inningId;
     }
 
     public void setStartTime(LocalDateTime startTime) {

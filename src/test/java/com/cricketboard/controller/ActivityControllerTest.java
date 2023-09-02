@@ -51,7 +51,7 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
         String runScoredActivity = """
                 {
                     "matchId": 1,
-                    "inningId": 1,
+                    "inningsId": 1,
                     "startTime": "2021-01-01 10:00:00",
                     "endTime": "2021-01-01 10:00:10",
                     "activityType": "RUN_SCORED",
