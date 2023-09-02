@@ -3,7 +3,9 @@ package com.cricketboard.service;
 import com.cricketboard.domain.Activity;
 import com.cricketboard.domain.RunScoredActivity;
 import com.cricketboard.repository.BowlRepository;
+import org.springframework.stereotype.Service;
 
+@Service
 public class ActivityService {
     private final BowlRepository bowlRepository;
 
