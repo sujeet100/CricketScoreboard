@@ -6,6 +6,7 @@ import com.cricketboard.domain.RunScoredActivity;
 import com.cricketboard.model.BallType;
 import com.cricketboard.model.Bowl;
 import com.cricketboard.model.RunType;
+import com.cricketboard.repository.ActivityRepository;
 import com.cricketboard.repository.BowlRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -29,9 +30,12 @@ public class ActivityServiceTest {
     @Mock
     private BowlRepository bowlRepository;
 
+    @Mock
+    private ActivityRepository activityRepository;
+
     @BeforeEach
     void setUp() {
-        activityService = new ActivityService(bowlRepository);
+        activityService = new ActivityService(bowlRepository, activityRepository);
     }
 
     @Test

@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import java.sql.Timestamp;
@@ -13,6 +14,7 @@ import java.util.Objects;
 @Setter
 @Entity
 @AllArgsConstructor
+@NoArgsConstructor
 public class Bowl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)

@@ -1,13 +1,18 @@
 package com.cricketboard.controller;
 
 import com.cricketboard.AbstractContainerBaseTest;
+import com.cricketboard.model.BallType;
+import com.cricketboard.model.Bowl;
+import com.cricketboard.repository.BowlRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.testcontainers.shaded.com.fasterxml.jackson.databind.ObjectMapper;
+
+import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -19,8 +24,30 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private MockMvc mockMvc;
 
+    @Autowired
+    private BowlRepository bowlRepository;
+
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
+
+        bowlRepository.save(new Bowl(
+                1,
+                1,
+                1,
+                1,
+                1,
+                BallType.LEGAL,
+                222,
+                100.1,
+                999,
+                888,
+                null,
+                null,
+                2000,
+                20003,
+                null,
+                Timestamp.valueOf(LocalDateTime.now())));
+
         String runScoredActivity = """
                 {
                     "matchId": 1,
@@ -31,11 +58,11 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                     "overNumber": 1,
                     "ballNumber": 1,
                     "runsScored": 3,
-                    "runtType": "NORMAL"
+                    "runType": "REGULAR"
                 }
                 """;
         this.mockMvc.perform(post("/activities")
-                .contentType(MediaType.APPLICATION_JSON).content(runScoredActivity))
+                        .contentType(MediaType.APPLICATION_JSON).content(runScoredActivity))
                 .andExpect(status().isOk());
     }
 }

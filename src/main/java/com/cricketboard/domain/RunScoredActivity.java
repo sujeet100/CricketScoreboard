@@ -1,11 +1,9 @@
 package com.cricketboard.domain;
 
 import com.cricketboard.model.RunType;
-import lombok.Getter;
 
 import java.time.LocalDateTime;
 
-@Getter
 public class RunScoredActivity extends Activity {
 
     private Integer overNumber;
@@ -24,16 +22,32 @@ public class RunScoredActivity extends Activity {
     public RunScoredActivity() {
     }
 
+    public Integer getOverNumber() {
+        return overNumber;
+    }
+
     public void setOverNumber(Integer overNumber) {
         this.overNumber = overNumber;
+    }
+
+    public Integer getBallNumber() {
+        return ballNumber;
     }
 
     public void setBallNumber(Integer ballNumber) {
         this.ballNumber = ballNumber;
     }
 
+    public Integer getRunsScored() {
+        return runsScored;
+    }
+
     public void setRunsScored(Integer runsScored) {
         this.runsScored = runsScored;
+    }
+
+    public RunType getRunType() {
+        return runType;
     }
 
     public void setRunType(RunType runType) {
