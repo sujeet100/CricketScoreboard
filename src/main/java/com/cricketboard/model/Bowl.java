@@ -2,6 +2,7 @@ package com.cricketboard.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -11,6 +12,7 @@ import java.util.Objects;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
 public class Bowl {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
