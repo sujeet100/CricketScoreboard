@@ -1,32 +1,27 @@
 package com.cricketboard;
 
-import org.springframework.boot.test.web.server.LocalServerPort;
+import org.junit.jupiter.api.BeforeAll;
+import org.springframework.boot.testcontainers.service.connection.ServiceConnection;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.DynamicPropertyRegistry;
-import org.springframework.test.context.DynamicPropertySource;
 import org.testcontainers.containers.PostgreSQLContainer;
 import org.testcontainers.containers.wait.strategy.Wait;
+import org.testcontainers.junit.jupiter.Container;
+import org.testcontainers.junit.jupiter.Testcontainers;
 
 @ContextConfiguration
+@Testcontainers
 public class AbstractContainerBaseTest {
 
-    @LocalServerPort
-    private Integer port;
+    @ServiceConnection
+    public static PostgreSQLContainer<?> postgres =
+            new PostgreSQLContainer<>("postgres:15-alpine")
+                    .waitingFor(Wait.forLogMessage(".*database system is ready to accept connections.*\\n", 2))
+                    .withReuse(true);
 
-    static PostgreSQLContainer<?> postgres = new PostgreSQLContainer<>(
-            "postgres:15-alpine"
-    );
-
-    static {
-        postgres.setWaitStrategy(Wait.forListeningPort());
+    @BeforeAll
+    public static void beforeAll() {
         postgres.start();
     }
 
-    @DynamicPropertySource
-    static void configureProperties(DynamicPropertyRegistry registry) {
-        registry.add("spring.datasource.url", postgres::getJdbcUrl);
-        registry.add("spring.datasource.username", postgres::getUsername);
-        registry.add("spring.datasource.password", postgres::getPassword);
-    }
 
 }

@@ -3,6 +3,8 @@ spring:
     url: jdbc:postgresql://localhost:5432/cricketboard
     username: ${DB_USERNAME}
     password: ${DB_PASSWORD}
+  flyway:
+    connect-retries: 10
   jpa.properties:
     hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect
   jpa:
