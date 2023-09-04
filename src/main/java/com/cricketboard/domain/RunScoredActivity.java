@@ -27,13 +27,26 @@ public class RunScoredActivity extends Activity {
     public RunScoredActivity() {
     }
 
-    public  Integer getMatchId() { return matchId; }
-    public void setMatchId(Integer matchId) { this.matchId = matchId; }
-    public Integer getInningsId() { return inningsId; }
-    public void setInningsId(Integer inningsId) { this.inningsId = inningsId; }
+    public Integer getMatchId() {
+        return matchId;
+    }
+
+    public void setMatchId(Integer matchId) {
+        this.matchId = matchId;
+    }
+
+    public Integer getInningsId() {
+        return inningsId;
+    }
+
+    public void setInningsId(Integer inningsId) {
+        this.inningsId = inningsId;
+    }
+
     public Integer getOverNumber() {
         return overNumber;
     }
+
     public void setOverNumber(Integer overNumber) {
         this.overNumber = overNumber;
     }
