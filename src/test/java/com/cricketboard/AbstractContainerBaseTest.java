@@ -1,7 +1,5 @@
 package com.cricketboard;
 
-import org.junit.jupiter.api.AfterAll;
-import org.junit.jupiter.api.BeforeAll;
 import org.springframework.boot.test.web.server.LocalServerPort;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.DynamicPropertyRegistry;
@@ -19,15 +17,9 @@ public class AbstractContainerBaseTest {
             "postgres:15-alpine"
     );
 
-    @BeforeAll
-    static void beforeAll() {
+    static {
         postgres.setWaitStrategy(Wait.forListeningPort());
         postgres.start();
-    }
-
-    @AfterAll
-    static void afterAll() {
-        postgres.stop();
     }
 
     @DynamicPropertySource
