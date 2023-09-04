@@ -16,8 +16,8 @@ public class TeamRepositoryTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldReturnTeams() {
-        Team india = new Team(1, "India");
-        Team australia = new Team(2, "Australia");
+        Team india = new Team("INDN00M", "India");
+        Team australia = new Team("AUSN00M", "Australia");
         teamRepository.save(india);
         teamRepository.save(australia);
 

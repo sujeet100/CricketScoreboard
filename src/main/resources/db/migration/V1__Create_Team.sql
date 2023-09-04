@@ -1,4 +1,4 @@
 CREATE TABLE "team" (
-  "id" integer,
+  "id" varchar(100),
   "name" varchar(100)
 );

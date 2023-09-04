@@ -25,17 +25,17 @@ public class TeamControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldReturnTeams() throws Exception {
-        Team india = new Team(1, "India");
-        Team australia = new Team(2, "Australia");
+        Team india = new Team("INDN00M", "India");
+        Team australia = new Team("AUSN00M", "Australia");
         teamRepository.save(india);
         teamRepository.save(australia);
 
         this.mockMvc.perform(get("/teams"))
                 .andExpect(status().isOk())
                 .andExpect(jsonPath("$").isArray())
-                .andExpect(jsonPath("$[0].id").value(1))
+                .andExpect(jsonPath("$[0].id").value("INDN00M"))
                 .andExpect(jsonPath("$[0].name").value("India"))
-                .andExpect(jsonPath("$[1].id").value(2))
+                .andExpect(jsonPath("$[1].id").value("AUSN00M"))
                 .andExpect(jsonPath("$[1].name").value("Australia"));
     }
 }

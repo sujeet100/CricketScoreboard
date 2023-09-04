@@ -1,0 +1,1 @@
+ALTER TABLE "team"  drop column "id", add column "id" varchar(70), add constraint "pk_id" primary key("id");
