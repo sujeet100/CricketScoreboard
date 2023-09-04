@@ -3,9 +3,11 @@ package com.cricketboard.service;
 import com.cricketboard.domain.Activity;
 import com.cricketboard.domain.ActivityType;
 import com.cricketboard.domain.RunScoredActivity;
+import com.cricketboard.factory.ActivityProcessorFactory;
 import com.cricketboard.model.BallType;
 import com.cricketboard.model.Bowl;
 import com.cricketboard.model.RunType;
+import com.cricketboard.processor.RunsScoredActivityProcessor;
 import com.cricketboard.repository.ActivityRepository;
 import com.cricketboard.repository.BowlRepository;
 import org.junit.jupiter.api.BeforeEach;
@@ -33,9 +35,14 @@ public class ActivityServiceTest {
     @Mock
     private ActivityRepository activityRepository;
 
+    @Mock
+    private ActivityProcessorFactory activityProcessorFactory;
+
     @BeforeEach
     void setUp() {
-        activityService = new ActivityService(bowlRepository, activityRepository);
+        activityService = new ActivityService(bowlRepository, activityRepository, activityProcessorFactory);
+        when(activityProcessorFactory.getProcessor(ActivityType.RUN_SCORED))
+                .thenReturn(new RunsScoredActivityProcessor());
     }
 
     @Test
