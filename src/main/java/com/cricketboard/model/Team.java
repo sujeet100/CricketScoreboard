@@ -8,10 +8,12 @@ import java.util.Objects;
 @Entity
 public final class Team {
     @Id
-    private Integer id;
+    private String id;
     private String name;
+    private String abbrevation;
+    private String category;
 
-    public Team(Integer id, String name) {
+    public Team(String id, String name) {
         this.id = id;
         this.name = name;
     }
@@ -20,7 +22,7 @@ public final class Team {
     }
 
     @Id
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
@@ -28,7 +30,7 @@ public final class Team {
         return name;
     }
 
-    public void setId(Integer id) {
+    public void setId(String id) {
         this.id = id;
     }
 
