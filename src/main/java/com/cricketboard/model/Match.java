@@ -2,8 +2,7 @@ package com.cricketboard.model;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
@@ -12,6 +11,9 @@ import java.sql.Timestamp;
 @Getter
 @Setter
 @Entity
+@AllArgsConstructor
+@NoArgsConstructor
+@Builder(setterPrefix = "with")
 public class Match {
     @Id
     @GeneratedValue(generator = "match_id_generator")

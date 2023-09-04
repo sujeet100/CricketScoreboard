@@ -1,23 +1,21 @@
 package com.cricketboard.service;
 
-import com.cricketboard.domain.BattingScore;
-import com.cricketboard.model.BatterRuns;
-import com.cricketboard.repository.BowlRepository;
+import com.cricketboard.model.Match;
+import com.cricketboard.repository.MatchRepository;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 
 @Service
 public class MatchService {
 
-    private final BowlRepository bowlRepository;
+    private final MatchRepository matchRepository;
 
-    public MatchService(BowlRepository bowlRepository) {
-        this.bowlRepository = bowlRepository;
+    public MatchService(MatchRepository matchRepository) {
+        this.matchRepository = matchRepository;
     }
 
-    public BattingScore getBattingScore(Integer matchId) {
-        List<BatterRuns> firstInningBattersScore = bowlRepository.getBattersScore(matchId, 1);
-        return null;
+    public Match saveMatch(Match match) {
+        return matchRepository.save(match);
     }
+
 }

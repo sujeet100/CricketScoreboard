@@ -16,7 +16,9 @@ import java.time.LocalDateTime;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RunScoredActivity.class, name = "RUN_SCORED"),
-        @JsonSubTypes.Type(value = NewBowlActivity.class, name = "NEW_BOWL")
+        @JsonSubTypes.Type(value = NewBowlActivity.class, name = "NEW_BOWL"),
+        @JsonSubTypes.Type(value = MatchStartedActivity.class, name="MATCH_STARTED"),
+        @JsonSubTypes.Type(value = NewInningsActivity.class, name="NEW_INNINGS")
 })
 public abstract class Activity {
 

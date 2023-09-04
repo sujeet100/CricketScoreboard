@@ -4,6 +4,7 @@ import com.cricketboard.AbstractContainerBaseTest;
 import com.cricketboard.model.BallType;
 import com.cricketboard.model.Bowl;
 import com.cricketboard.repository.BowlRepository;
+import com.cricketboard.repository.MatchRepository;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -27,8 +28,50 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private BowlRepository bowlRepository;
 
+    @Autowired
+    private MatchRepository matchRepository;
+
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
+
+        bowlRepository.save(new Bowl(
+                1,
+                1,
+                1,
+                1,
+                1,
+                BallType.LEGAL,
+                222,
+                100.1,
+                999,
+                888,
+                null,
+                null,
+                2000,
+                20003,
+                null,
+                Timestamp.valueOf(LocalDateTime.now())));
+
+        String runScoredActivity = """
+                {
+                    "matchId": 1,
+                    "inningsId": 1,
+                    "startTime": "2021-01-01 10:00:00",
+                    "endTime": "2021-01-01 10:00:10",
+                    "activityType": "RUN_SCORED",
+                    "overNumber": 1,
+                    "ballNumber": 1,
+                    "runsScored": 3,
+                    "runType": "REGULAR"
+                }
+                """;
+        this.mockMvc.perform(post("/activities")
+                        .contentType(MediaType.APPLICATION_JSON).content(runScoredActivity))
+                .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldCaptureNewMatchStartedActivity() throws Exception {
 
         bowlRepository.save(new Bowl(
                 1,
