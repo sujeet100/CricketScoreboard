@@ -18,4 +18,9 @@ public class MatchService {
         return matchRepository.save(match);
     }
 
+    public BattingScore getBattingScore(Integer matchId) {
+        List<BatterRuns> firstInningBattersScore = bowlRepository.getBatterRuns(matchId, 1);
+        return null;
+    }
+
 }
