@@ -24,7 +24,9 @@ public class NewBowlActivityProcessor implements ActivityProcessor {
     public Activity processActivity(Activity activity) {
         NewBowlActivity newBowlActivity = (NewBowlActivity) activity;
 
-        Over currentOverSummary = bowlService.getCurrentOverSummary(newBowlActivity.getMatchId(), newBowlActivity.getInningsId());
+        Over currentOverSummary = bowlService.getCurrentOverSummary(
+                newBowlActivity.getMatchId(),
+                newBowlActivity.getInningsId());
 
         isBowlSequenceValid(currentOverSummary, newBowlActivity);
 
@@ -34,8 +36,15 @@ public class NewBowlActivityProcessor implements ActivityProcessor {
     }
 
     private static void isBowlSequenceValid(Over currentOverSummary, NewBowlActivity newBowlActivity) {
-        if (!Objects.equals(currentOverSummary.nextBowlNumber(), newBowlActivity.getBowl().getBallNumber())) {
-            throw new RuntimeException("Bowl sequence is not correct");
+        if (!Objects.equals(currentOverSummary.nextBowlNumber(), newBowlActivity.getBowl().getBallNumber())
+                || !Objects.equals(currentOverSummary.nextOverNumber(), newBowlActivity.getBowl().getOverNumber())) {
+            throw new RuntimeException(
+                    "Bowl sequence is not correct, Expected next over: %s, ball: %s while trying to add ball with over: %s ball: %s"
+                            .formatted(
+                                    currentOverSummary.nextOverNumber(),
+                                    currentOverSummary.nextBowlNumber(),
+                                    newBowlActivity.getBowl().getOverNumber(),
+                                    newBowlActivity.getBowl().getBallNumber()));
         }
     }
 }

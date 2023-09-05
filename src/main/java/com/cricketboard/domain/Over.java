@@ -19,6 +19,6 @@ public class Over {
     }
 
     public Integer nextOverNumber() {
-        return overNumber + 1;
+        return currentBowlNumber == 6 ? overNumber + 1 : overNumber;
     }
 }
