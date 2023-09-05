@@ -72,9 +72,9 @@ public class NewBowlActivityProcessorTest {
 
     @Test
     void shouldBeAValidBallSequenceWhenFirstBowlOfMatch() {
-        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(1, 1));
+        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(0, 0));
 
-        Bowl bowl = legalBowl().withOverNumber(1).withBallNumber(3).build();
+        Bowl bowl = legalBowl().withOverNumber(2).withBallNumber(1).build();
         Activity activity = new NewBowlActivity(
                 1,
                 1,
@@ -83,9 +83,23 @@ public class NewBowlActivityProcessorTest {
                 ActivityType.NEW_BOWL,
                 bowl);
 
-        assertThatThrownBy(() -> newBowlActivityProcessor.processActivity(activity))
-                .hasMessage("Bowl sequence is not correct")
-                .isInstanceOf(RuntimeException.class);
+        assertThat(newBowlActivityProcessor.processActivity(activity)).isNotNull();
+    }
+
+    @Test
+    void shouldBeAValidBallSequenceWhenFirstBowlOfNextOver() {
+        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(1, 6));
+
+        Bowl bowl = legalBowl().withOverNumber(2).withBallNumber(1).build();
+        Activity activity = new NewBowlActivity(
+                1,
+                1,
+                LocalDateTime.now(),
+                LocalDateTime.now().plusSeconds(10),
+                ActivityType.NEW_BOWL,
+                bowl);
+
+        assertThat(newBowlActivityProcessor.processActivity(activity)).isNotNull();
     }
 
 }
