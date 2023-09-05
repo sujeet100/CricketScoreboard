@@ -25,8 +25,8 @@ public class TeamControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldReturnTeams() throws Exception {
-        Team india = new Team("INDN00M", "India");
-        Team australia = new Team("AUSN00M", "Australia");
+        Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
+        Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
         teamRepository.save(india);
         teamRepository.save(australia);
 

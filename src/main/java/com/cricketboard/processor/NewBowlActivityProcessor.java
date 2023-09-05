@@ -24,7 +24,7 @@ public class NewBowlActivityProcessor implements ActivityProcessor {
     public Activity processActivity(Activity activity) {
         NewBowlActivity newBowlActivity = (NewBowlActivity) activity;
 
-        Over currentOverSummary = bowlService.getCurrentOverSummary("1", "1");
+        Over currentOverSummary = bowlService.getCurrentOverSummary(newBowlActivity.getMatchId(), newBowlActivity.getInningsId());
 
         isBowlSequenceValid(currentOverSummary, newBowlActivity);
 

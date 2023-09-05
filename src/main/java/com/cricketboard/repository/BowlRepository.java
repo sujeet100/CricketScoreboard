@@ -13,7 +13,7 @@ import java.util.List;
 import java.util.Optional;
 
 @Repository
-public interface BowlRepository extends JpaRepository<Bowl, Integer> {
+public interface BowlRepository extends JpaRepository<Bowl, String> {
     Optional<Bowl> findByMatchIdAndInningsIdAndOverNumberAndBallNumber(String matchId, String inningsId, Integer overNumber, Integer ballNumber);
 
     @Query("""

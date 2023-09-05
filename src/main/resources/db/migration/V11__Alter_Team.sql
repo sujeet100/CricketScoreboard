@@ -1,0 +1,1 @@
+ALTER TABLE "team" add column "abbrevation" varchar(5), add column "category" varchar(100);

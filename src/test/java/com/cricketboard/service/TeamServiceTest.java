@@ -22,9 +22,9 @@ public class TeamServiceTest {
     @Test
     void shouldReturnTeams() {
         TeamService teamService = new TeamService(teamRepository);
-        when(teamRepository.findAll()).thenReturn(List.of(new Team("INDN00M", "India")));
+        when(teamRepository.findAll()).thenReturn(List.of(new Team("INDN00M", "India", "IND", "NATIONAL")));
 
         List<Team> teams = teamService.getTeams();
-        assertThat(teams).containsExactly(new Team("INDN00M", "India"));
+        assertThat(teams).containsExactly(new Team("INDN00M", "India", "IND", "NATIONAL"));
     }
 }

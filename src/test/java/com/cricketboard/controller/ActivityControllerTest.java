@@ -4,7 +4,9 @@ import com.cricketboard.AbstractContainerBaseTest;
 import com.cricketboard.domain.ActivityType;
 import com.cricketboard.domain.NewBowlActivity;
 import com.cricketboard.model.Bowl;
+import com.cricketboard.model.Team;
 import com.cricketboard.repository.BowlRepository;
+import com.cricketboard.repository.TeamRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
@@ -30,9 +32,12 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private BowlRepository bowlRepository;
 
+    @Autowired
+    private TeamRepository teamRepository;
+
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
-        Bowl bowl = legalBowl().build();
+        Bowl bowl = legalBowl().withOverNumber(1).withBallNumber(1).build();
         bowlRepository.save(bowl);
 
         String runScoredActivity = """
@@ -55,6 +60,11 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldCaptureNewMatchStartedActivity() throws Exception {
+        Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
+        Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
+        teamRepository.save(india);
+        teamRepository.save(australia);
+
         String matchStartedActivity = """   
                 {
                     "team1Id": "INDN00M",

@@ -6,7 +6,6 @@ import lombok.*;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
 @Getter
@@ -18,14 +17,8 @@ import java.time.LocalDateTime;
 public class Match {
     @Id
     @GeneratedValue(generator = "match_id_generator")
-    @GenericGenerator(name="match_id_generator", strategy = "com.cricketboard.model.generator.MatchIdGenerator")
+    @GenericGenerator(name = "match_id_generator", strategy = "com.cricketboard.model.generator.MatchIdGenerator")
     private String matchId;
-    @NotNull
-    @Column(name="team1_id")
-    private String team1Id;
-    @NotNull
-    @Column(name="team2_id")
-    private String team2Id;
     @Temporal(TemporalType.TIMESTAMP)
     private LocalDateTime date;
     @NotNull
@@ -36,4 +29,12 @@ public class Match {
     private Integer umpire1;
     @NotNull
     private Integer umpire2;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "team1_id", referencedColumnName = "id")
+    private Team team1;
+
+    @OneToOne(cascade = CascadeType.ALL)
+    @JoinColumn(name = "team2_id", referencedColumnName = "id")
+    private Team team2;
 }

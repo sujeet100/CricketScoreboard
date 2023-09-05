@@ -3,12 +3,10 @@ package com.cricketboard.processor;
 import com.cricketboard.domain.Activity;
 import com.cricketboard.domain.MatchStartedActivity;
 import com.cricketboard.model.Match;
+import com.cricketboard.repository.TeamRepository;
 import com.cricketboard.service.ActivityRecordService;
 import com.cricketboard.service.MatchService;
 import org.springframework.stereotype.Service;
-
-import java.sql.Timestamp;
-import java.time.temporal.Temporal;
 
 @Service
 public class MatchStartedActivityProcessor implements ActivityProcessor {
@@ -16,9 +14,12 @@ public class MatchStartedActivityProcessor implements ActivityProcessor {
     private final MatchService matchService;
     private final ActivityRecordService activityRecordService;
 
-    public MatchStartedActivityProcessor(MatchService matchService, ActivityRecordService activityRecordService) {
+    private final TeamRepository teamRepository;
+
+    public MatchStartedActivityProcessor(MatchService matchService, ActivityRecordService activityRecordService, TeamRepository teamRepository) {
         this.matchService = matchService;
         this.activityRecordService = activityRecordService;
+        this.teamRepository = teamRepository;
     }
 
     @Override
@@ -26,8 +27,10 @@ public class MatchStartedActivityProcessor implements ActivityProcessor {
         MatchStartedActivity matchStartedActivity = (MatchStartedActivity) activity;
         com.cricketboard.model.Activity savedActivity = activityRecordService.saveActivityRecord(matchStartedActivity);
         Match match = new Match();
-        match.setTeam1Id(matchStartedActivity.getTeam1Id());
-        match.setTeam2Id(matchStartedActivity.getTeam2Id());
+        match.setTeam1(teamRepository.findById(matchStartedActivity.getTeam1Id())
+                .orElseThrow(() -> new RuntimeException("Team not found")));
+        match.setTeam2(teamRepository.findById(matchStartedActivity.getTeam2Id())
+                .orElseThrow(() -> new RuntimeException("Team not found")));
         match.setDate(matchStartedActivity.getDate());
         match.setVenue(matchStartedActivity.getVenue());
         match.setMatchType(matchStartedActivity.getMatchType());
