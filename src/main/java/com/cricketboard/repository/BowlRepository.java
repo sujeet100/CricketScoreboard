@@ -1,5 +1,6 @@
 package com.cricketboard.repository;
 
+import com.cricketboard.domain.Over;
 import com.cricketboard.model.BatterBowls;
 import com.cricketboard.model.BatterRunTypeCount;
 import com.cricketboard.model.BatterRuns;
@@ -70,4 +71,28 @@ public interface BowlRepository extends JpaRepository<Bowl, Integer> {
             	b.runType
             """)
     List<BatterRunTypeCount> getBatterRunTypeCounts(int matchId, int inningsId);
+
+    @Query("""
+            select
+            	new com.cricketboard.domain.Over(
+            	    b.overNumber,
+            	    max(b.ballNumber)
+            	)
+            from
+            	Bowl b
+            where
+            	b.matchId = ?1
+            	and b.inningsId = ?2
+            	and b.overNumber = (
+            	    select
+            	        max(b.overNumber)
+            	    from
+            	        Bowl b
+            	    where
+            	        b.matchId = ?1
+            	        and b.inningsId = ?2
+            	)
+            group by overNumber
+            """)
+    Over getCurrentOverSummary(Integer matchId, Integer inningsId);
 }

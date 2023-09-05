@@ -1,5 +1,6 @@
 package com.cricketboard.service;
 
+import com.cricketboard.domain.Over;
 import com.cricketboard.model.Bowl;
 import com.cricketboard.repository.BowlRepository;
 import org.springframework.stereotype.Service;
@@ -27,4 +28,8 @@ public class BowlService {
                 ballNumber);
     }
 
+    public Over getCurrentOverSummary(Integer matchId, Integer inningsId) {
+        Over currentOverSummary = bowlRepository.getCurrentOverSummary(matchId, inningsId);
+        return currentOverSummary == null ? new Over(0, 0) : currentOverSummary;
+    }
 }

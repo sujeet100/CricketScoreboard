@@ -101,4 +101,5 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(newBowlActivity)))
                 .andExpect(status().isOk());
     }
+
 }

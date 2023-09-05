@@ -19,7 +19,7 @@ public class BowlMother {
                 .withBallType(BallType.LEGAL)
                 .withFrontUmpireId(1001)
                 .withLegUmpireId(1002)
-                .withOverNumber(1)
+                .withOverNumber(0)
                 .withBallNumber(1)
                 .withStrikerBatterId(345)
                 .withNonStrikerBatterId(556)
@@ -27,7 +27,7 @@ public class BowlMother {
     }
 
     public static Bowl.BowlBuilder bowlWithRegularRuns(int over, int bowl, int runs) {
-        return legalBowl().withId(over * 6 + bowl)
+        return legalBowl().withId((over * 6) + bowl)
                 .withOverNumber(over)
                 .withBallNumber(bowl)
                 .withRun(runs)
@@ -43,7 +43,8 @@ public class BowlMother {
     }
 
     public static Bowl.BowlBuilder bowlWithLegByeRuns(int over, int bowl, int runs) {
-        return legalBowl().withId(over * 6 + bowl)
+        return legalBowl()
+                .withId((over * 6) + bowl)
                 .withOverNumber(over)
                 .withBallNumber(bowl)
                 .withRun(runs)

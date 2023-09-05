@@ -1,7 +1,9 @@
 package com.cricketboard.repository;
 
 import com.cricketboard.AbstractContainerBaseTest;
+import com.cricketboard.domain.Over;
 import com.cricketboard.model.*;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -15,6 +17,11 @@ import static org.assertj.core.api.Assertions.assertThat;
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 public class BowlRepositoryTest extends AbstractContainerBaseTest {
 
+    @BeforeEach
+    void setUp() {
+        bowlRepository.deleteAll();
+    }
+
     @Autowired
     private BowlRepository bowlRepository;
 
@@ -23,7 +30,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         Bowl bowl = legalBowl().build();
         bowlRepository.save(bowl);
 
-        Optional<Bowl> actual = bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber(1, 1, 1, 1);
+        Optional<Bowl> actual = bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber(1, 1, 0, 1);
 
         assertThat(actual).isPresent();
     }
@@ -68,18 +75,18 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldReturnBatterRunTypeCount() {
-        Bowl bowl1 = bowlWithFourRuns(1, 1).withStrikerBatterId(345).build();
-        Bowl bowl2 = bowlWithRegularRuns(1, 2, 1).withStrikerBatterId(345).build();
-
-        Bowl bowl3 = bowlWithLegByeRuns(1, 3, 1).withStrikerBatterId(456).build();
-        Bowl bowl4 = bowlWithRegularRuns(1, 4, 1).withStrikerBatterId(456).build();
-
-        Bowl bowl5 = bowlWithSixRuns(1, 5).withStrikerBatterId(456).build();
-        Bowl bowl6 = bowlWithRegularRuns(1, 6, 2).withStrikerBatterId(456).build();
-
-
+        Bowl bowl1 = bowlWithFourRuns(2, 1).withStrikerBatterId(345).build();
+        Bowl bowl2 = bowlWithRegularRuns(2, 2, 1).withStrikerBatterId(345).build();
         bowlRepository.save(bowl1);
         bowlRepository.save(bowl2);
+
+        Bowl bowl3 = bowlWithLegByeRuns(2, 3, 1).withStrikerBatterId(456).build();
+        Bowl bowl4 = bowlWithRegularRuns(2, 4, 1).withStrikerBatterId(456).build();
+
+        Bowl bowl5 = bowlWithSixRuns(2, 5).withStrikerBatterId(456).build();
+        Bowl bowl6 = bowlWithRegularRuns(2, 6, 2).withStrikerBatterId(456).build();
+
+
         bowlRepository.save(bowl3);
         bowlRepository.save(bowl4);
         bowlRepository.save(bowl5);
@@ -94,5 +101,28 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
                 new BatterRunTypeCount(345, RunType.REGULAR, 1L),
                 new BatterRunTypeCount(456, RunType.SIX, 1L)
         );
+    }
+
+    @Test
+    void shouldReturnOverSummary() {
+        Bowl bowl1 = bowlWithFourRuns(1, 1).withStrikerBatterId(345).build();
+        Bowl bowl2 = bowlWithRegularRuns(1, 2, 1).withStrikerBatterId(345).build();
+
+        bowlRepository.save(bowl1);
+        bowlRepository.save(bowl2);
+
+        Over currentOverSummary = bowlRepository.getCurrentOverSummary(1, 1);
+
+        assertThat(currentOverSummary).isEqualTo(new Over(1, 2));
+
+    }
+
+    @Test
+    void shouldReturnOverSummaryWhenNoBowlsAreBowledInaMatch() {
+
+        Over currentOverSummary = bowlRepository.getCurrentOverSummary(1, 1);
+
+        assertThat(currentOverSummary).isNull();
+
     }
 }
