@@ -15,7 +15,7 @@ import static com.cricketboard.mother.BowlMother.*;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class BowlRepositoryTest extends AbstractContainerBaseTest {
+class BowlRepositoryTest extends AbstractContainerBaseTest {
 
     @BeforeEach
     void setUp() {
@@ -69,7 +69,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
 
         assertThat(actual).containsExactlyInAnyOrder(
                 new BatterBowls(345, 2L),
-                new BatterBowls(456, 2L)
+                new BatterBowls(456, 1L)
         );
     }
 
@@ -124,5 +124,21 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
 
         assertThat(currentOverSummary).isNull();
 
+    }
+
+    @Test
+    void shouldReturnBowlingScore() {
+        Bowl bowl1 = bowlWithFourRuns(1, 1).withBowlerId(11).build();
+        Bowl bowl2 = bowlWithRegularRuns(1, 2, 1).withBowlerId(11).build();
+        Bowl bowl3 = bowlWithRegularRuns(1, 3, 1).withBowlerId(11).build();
+        Bowl bowl4 = bowlWithWicket(1, 4, 1).withBowlerId(11).build();
+        Bowl bowl5 = bowlWithSixRuns(1, 5).withBowlerId(11).build();
+        Bowl bowl6 = bowlWithWicket(1, 6, 2).withBowlerId(11).build();
+
+        List<Bowl> over = List.of(bowl1, bowl2, bowl3, bowl4, bowl5, bowl6);
+        bowlRepository.saveAll(over);
+
+        List<BowlingScore> bowlingScore = bowlRepository.getBowlingScore("1", "1", 11);
+        assertThat(bowlingScore).hasSize(2);
     }
 }

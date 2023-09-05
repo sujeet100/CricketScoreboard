@@ -30,6 +30,7 @@ public class BowlMother {
         return legalBowl().withId((over * 6) + bowl)
                 .withOverNumber(over)
                 .withBallNumber(bowl)
+                .withBallType(BallType.LEGAL)
                 .withRun(runs)
                 .withRunType(RunType.REGULAR);
     }
@@ -48,6 +49,16 @@ public class BowlMother {
                 .withOverNumber(over)
                 .withBallNumber(bowl)
                 .withRun(runs)
+                .withBallType(BallType.EXTRA)
                 .withRunType(RunType.LEGBYE);
+    }
+
+    public static Bowl.BowlBuilder bowlWithWicket(int over, int ballNo, int wicketId){
+        return legalBowl()
+                .withId((over * 6) + ballNo)
+                .withOverNumber(over)
+                .withBallNumber(ballNo)
+                .withBallType(BallType.WICKET)
+                .withWicketId(wicketId);
     }
 }
