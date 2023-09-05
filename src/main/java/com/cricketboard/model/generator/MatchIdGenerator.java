@@ -14,6 +14,6 @@ public class MatchIdGenerator implements IdentifierGenerator {
         Match match = (Match) object;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
         return match.getTeam1Id() + match.getTeam2Id() +
-                dateFormat.format((TemporalAccessor) ((Match) object).getDate().toLocalDateTime()).toString();
+                dateFormat.format((TemporalAccessor) ((Match) object).getDate()).toString();
      }
 }

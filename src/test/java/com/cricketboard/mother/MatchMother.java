@@ -10,7 +10,7 @@ public class MatchMother {
         return Match.builder()
                 .withTeam1Id("INDN000M")
                 .withTeam2Id("AUSN000M")
-                .withDate(Timestamp.valueOf(LocalDateTime.now()))
+                .withDate(LocalDateTime.now())
                 .withVenue("Chennai")
                 .withUmpire1(1)
                 .withUmpire2(2);

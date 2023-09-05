@@ -7,6 +7,7 @@ import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.validator.constraints.Length;
 
 import java.sql.Timestamp;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -26,7 +27,7 @@ public class Match {
     @Column(name="team2_id")
     private String team2Id;
     @Temporal(TemporalType.TIMESTAMP)
-    private Timestamp date;
+    private LocalDateTime date;
     @NotNull
     @Length(max = 200)
     private String venue;

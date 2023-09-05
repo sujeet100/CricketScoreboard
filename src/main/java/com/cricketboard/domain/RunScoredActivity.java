@@ -21,7 +21,6 @@ public class RunScoredActivity extends Activity {
         this.ballNumber = ballNumber;
         this.runsScored = runsScored;
         this.runType = runType;
-
     }
 
     public RunScoredActivity() {

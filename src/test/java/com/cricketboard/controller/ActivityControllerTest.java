@@ -28,9 +28,6 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private BowlRepository bowlRepository;
 
-    @Autowired
-    private MatchRepository matchRepository;
-
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
 
@@ -73,39 +70,22 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Test
     void shouldCaptureNewMatchStartedActivity() throws Exception {
 
-        bowlRepository.save(new Bowl(
-                1,
-                1,
-                1,
-                1,
-                1,
-                BallType.LEGAL,
-                222,
-                100.1,
-                999,
-                888,
-                null,
-                null,
-                2000,
-                20003,
-                null,
-                Timestamp.valueOf(LocalDateTime.now())));
-
-        String runScoredActivity = """
+        String matchStartedActivity = """   
                 {
-                    "matchId": 1,
-                    "inningsId": 1,
-                    "startTime": "2021-01-01 10:00:00",
-                    "endTime": "2021-01-01 10:00:10",
-                    "activityType": "RUN_SCORED",
-                    "overNumber": 1,
-                    "ballNumber": 1,
-                    "runsScored": 3,
-                    "runType": "REGULAR"
+                    "team1Id": "INDN00M",
+                    "team2Id": "AUSN00M",
+                    "date": "2023-09-04 10:00:00",
+                    "matchType": "20/20",
+                    "venue": "Chennai",
+                    "umpire1": 1,
+                    "umpire2": 2,
+                    "startTime": "2023-09-04 10:00:00",
+                    "endTime": "2023-09-04 10:00:10",
+                    "activityType": "MATCH_STARTED"
                 }
                 """;
         this.mockMvc.perform(post("/activities")
-                        .contentType(MediaType.APPLICATION_JSON).content(runScoredActivity))
+                        .contentType(MediaType.APPLICATION_JSON).content(matchStartedActivity))
                 .andExpect(status().isOk());
     }
 }
