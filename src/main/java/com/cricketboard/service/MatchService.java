@@ -49,7 +49,7 @@ public class MatchService {
     }
 
     public MatchDetails getMatchDetails(String matchId) {
-        Match match = matchRepository.findById(matchId).orElseThrow();
+        Match match = matchRepository.findById(matchId).orElseThrow(() -> new RuntimeException("Match not found"));
         Team teamA = match.getTeam1();
         Team teamB = match.getTeam2();
         BattingScore firstInningBattersScore = getBattingScore(matchId, matchId + "_1");

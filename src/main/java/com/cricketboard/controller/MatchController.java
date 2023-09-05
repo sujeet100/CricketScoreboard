@@ -4,6 +4,8 @@ import com.cricketboard.domain.MatchDetails;
 import com.cricketboard.service.MatchService;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 @Controller
 public class MatchController {
@@ -15,7 +17,8 @@ public class MatchController {
     }
 
     @GetMapping("/matchDetails/{matchId}")
-    public MatchDetails getMatchDetails(String matchId) {
+    @ResponseBody
+    public MatchDetails getMatchDetails(@PathVariable String matchId) {
         return matchService.getMatchDetails(matchId);
     }
 }
