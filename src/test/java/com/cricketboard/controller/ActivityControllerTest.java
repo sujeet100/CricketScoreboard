@@ -42,7 +42,7 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                     "startTime": "2021-01-01 10:00:00",
                     "endTime": "2021-01-01 10:00:10",
                     "activityType": "RUN_SCORED",
-                    "overNumber": 1,
+                    "overNumber": 0,
                     "ballNumber": 1,
                     "runsScored": 3,
                     "runType": "REGULAR"
