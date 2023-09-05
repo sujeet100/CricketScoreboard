@@ -10,10 +10,10 @@ public class RunScoredActivity extends Activity {
     private Integer ballNumber;
     private Integer runsScored;
     private RunType runType;
-    private Integer matchId;
-    private Integer inningsId;
+    private String matchId;
+    private String inningsId;
 
-    public RunScoredActivity(Integer matchId, Integer inningsId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType, Integer overNumber, Integer ballNumber, Integer runsScored, RunType runType) {
+    public RunScoredActivity(String matchId, String inningsId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType, Integer overNumber, Integer ballNumber, Integer runsScored, RunType runType) {
         super(startTime, endTime, activityType);
         this.matchId = matchId;
         this.inningsId = inningsId;
@@ -26,19 +26,19 @@ public class RunScoredActivity extends Activity {
     public RunScoredActivity() {
     }
 
-    public Integer getMatchId() {
+    public String getMatchId() {
         return matchId;
     }
 
-    public void setMatchId(Integer matchId) {
+    public void setMatchId(String matchId) {
         this.matchId = matchId;
     }
 
-    public Integer getInningsId() {
+    public String getInningsId() {
         return inningsId;
     }
 
-    public void setInningsId(Integer inningsId) {
+    public void setInningsId(String inningsId) {
         this.inningsId = inningsId;
     }
 

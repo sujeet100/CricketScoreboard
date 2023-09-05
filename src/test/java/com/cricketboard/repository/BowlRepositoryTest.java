@@ -30,7 +30,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         Bowl bowl = legalBowl().build();
         bowlRepository.save(bowl);
 
-        Optional<Bowl> actual = bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber(1, 1, 0, 1);
+        Optional<Bowl> actual = bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber("1", "1", 0, 1);
 
         assertThat(actual).isPresent();
     }
@@ -46,7 +46,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         bowlRepository.save(bowl3);
         bowlRepository.save(bowl4);
 
-        List<BatterRuns> actual = bowlRepository.getBatterRuns(1, 1);
+        List<BatterRuns> actual = bowlRepository.getBatterRuns("1", "1");
 
         assertThat(actual).containsExactlyInAnyOrder(
                 new BatterRuns(345, 3L),
@@ -65,7 +65,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         bowlRepository.save(bowl3);
         bowlRepository.save(bowl4);
 
-        List<BatterBowls> actual = bowlRepository.getBatterBowlsFaced(1, 1);
+        List<BatterBowls> actual = bowlRepository.getBatterBowlsFaced("1", "1");
 
         assertThat(actual).containsExactlyInAnyOrder(
                 new BatterBowls(345, 2L),
@@ -92,7 +92,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         bowlRepository.save(bowl5);
         bowlRepository.save(bowl6);
 
-        List<BatterRunTypeCount> actual = bowlRepository.getBatterRunTypeCounts(1, 1);
+        List<BatterRunTypeCount> actual = bowlRepository.getBatterRunTypeCounts("1", "1");
 
         assertThat(actual).containsExactlyInAnyOrder(
                 new BatterRunTypeCount(345, RunType.FOUR, 1L),
@@ -111,7 +111,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
         bowlRepository.save(bowl1);
         bowlRepository.save(bowl2);
 
-        Over currentOverSummary = bowlRepository.getCurrentOverSummary(1, 1);
+        Over currentOverSummary = bowlRepository.getCurrentOverSummary("1", "1");
 
         assertThat(currentOverSummary).isEqualTo(new Over(1, 2));
 
@@ -120,7 +120,7 @@ public class BowlRepositoryTest extends AbstractContainerBaseTest {
     @Test
     void shouldReturnOverSummaryWhenNoBowlsAreBowledInaMatch() {
 
-        Over currentOverSummary = bowlRepository.getCurrentOverSummary(1, 1);
+        Over currentOverSummary = bowlRepository.getCurrentOverSummary("1", "1");
 
         assertThat(currentOverSummary).isNull();
 

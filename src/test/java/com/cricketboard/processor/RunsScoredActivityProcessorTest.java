@@ -41,11 +41,11 @@ public class RunsScoredActivityProcessorTest {
     @Test
     void shouldSaveRunScoredActivity() {
 
-        when(bowlService.getBowl(1, 1, 1, 1))
+        when(bowlService.getBowl("1", "1", 1, 1))
                 .thenReturn(Optional.of(new Bowl(
                         1,
-                        1,
-                        1,
+                        "1",
+                        "1",
                         1,
                         1,
                         BallType.LEGAL,
@@ -61,8 +61,8 @@ public class RunsScoredActivityProcessorTest {
                         new Timestamp(LocalDateTime.now().getNano()))));
 
         Activity runScoredActivity = new RunScoredActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now().minusSeconds(10),
                 LocalDateTime.now(),
                 ActivityType.RUN_SCORED,
@@ -79,11 +79,11 @@ public class RunsScoredActivityProcessorTest {
     @Test
     void shouldThrowExceptionIfRunsAreScoredForBowlNotRecorded() {
 
-        when(bowlService.getBowl(1, 1, 1, 1)).thenReturn(Optional.empty());
+        when(bowlService.getBowl("1", "1", 1, 1)).thenReturn(Optional.empty());
 
         Activity runScoredActivity = new RunScoredActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now().minusSeconds(10),
                 LocalDateTime.now(),
                 ActivityType.RUN_SCORED,

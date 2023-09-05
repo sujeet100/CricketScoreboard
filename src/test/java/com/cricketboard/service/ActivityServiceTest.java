@@ -37,8 +37,8 @@ public class ActivityServiceTest {
     void shouldSaveActivity() {
 
         Activity runScoredActivity = new RunScoredActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now().minusSeconds(10),
                 LocalDateTime.now(),
                 ActivityType.RUN_SCORED,

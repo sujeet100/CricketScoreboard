@@ -37,8 +37,8 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
         String runScoredActivity = """
                 {
-                    "matchId": 1,
-                    "inningsId": 1,
+                    "matchId": "1",
+                    "inningsId": "1",
                     "startTime": "2021-01-01 10:00:00",
                     "endTime": "2021-01-01 10:00:10",
                     "activityType": "RUN_SCORED",
@@ -79,8 +79,8 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
         Bowl bowl = legalBowl().build();
 
         NewBowlActivity newBowlActivity = new NewBowlActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 ActivityType.NEW_BOWL,

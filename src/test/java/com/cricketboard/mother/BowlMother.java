@@ -12,8 +12,8 @@ public class BowlMother {
     public static Bowl.BowlBuilder legalBowl() {
         return Bowl.builder()
                 .withId(1)
-                .withMatchId(1)
-                .withInningsId(1)
+                .withMatchId("1")
+                .withInningsId("1")
                 .withBowlerId(123)
                 .withBallSpeed(100.1)
                 .withBallType(BallType.LEGAL)

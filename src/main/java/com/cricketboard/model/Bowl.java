@@ -18,9 +18,9 @@ public class Bowl {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
     @NotNull
-    private Integer matchId;
+    private String matchId;
     @NotNull
-    private Integer inningsId;
+    private String inningsId;
     @NotNull
     private Integer overNumber;
     @NotNull

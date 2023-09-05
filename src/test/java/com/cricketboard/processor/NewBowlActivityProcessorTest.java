@@ -39,14 +39,14 @@ public class NewBowlActivityProcessorTest {
     void shouldSaveNewBowlActivity() {
         Bowl bowl = legalBowl().build();
         Activity activity = new NewBowlActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusSeconds(10),
                 ActivityType.NEW_BOWL,
                 bowl);
 
-        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(0, 0));
+        when(bowlService.getCurrentOverSummary("1", "1")).thenReturn(new Over(0, 0));
 
         newBowlActivityProcessor.processActivity(activity);
         assertThat(activity).isNotNull();
@@ -54,12 +54,12 @@ public class NewBowlActivityProcessorTest {
 
     @Test
     void shouldNotSkipABowl() {
-        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(1, 1));
+        when(bowlService.getCurrentOverSummary("1", "1")).thenReturn(new Over(1, 1));
 
         Bowl bowl = legalBowl().withOverNumber(1).withBallNumber(3).build();
         Activity activity = new NewBowlActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusSeconds(10),
                 ActivityType.NEW_BOWL,
@@ -72,12 +72,12 @@ public class NewBowlActivityProcessorTest {
 
     @Test
     void shouldBeAValidBallSequenceWhenFirstBowlOfMatch() {
-        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(0, 0));
+        when(bowlService.getCurrentOverSummary("1", "1")).thenReturn(new Over(0, 0));
 
         Bowl bowl = legalBowl().withOverNumber(2).withBallNumber(1).build();
         Activity activity = new NewBowlActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusSeconds(10),
                 ActivityType.NEW_BOWL,
@@ -88,12 +88,12 @@ public class NewBowlActivityProcessorTest {
 
     @Test
     void shouldBeAValidBallSequenceWhenFirstBowlOfNextOver() {
-        when(bowlService.getCurrentOverSummary(1, 1)).thenReturn(new Over(1, 6));
+        when(bowlService.getCurrentOverSummary("1", "1")).thenReturn(new Over(1, 6));
 
         Bowl bowl = legalBowl().withOverNumber(2).withBallNumber(1).build();
         Activity activity = new NewBowlActivity(
-                1,
-                1,
+                "1",
+                "1",
                 LocalDateTime.now(),
                 LocalDateTime.now().plusSeconds(10),
                 ActivityType.NEW_BOWL,

@@ -14,7 +14,7 @@ import java.util.Optional;
 
 @Repository
 public interface BowlRepository extends JpaRepository<Bowl, Integer> {
-    Optional<Bowl> findByMatchIdAndInningsIdAndOverNumberAndBallNumber(Integer matchId, Integer inningsId, Integer overNumber, Integer ballNumber);
+    Optional<Bowl> findByMatchIdAndInningsIdAndOverNumberAndBallNumber(String matchId, String inningsId, Integer overNumber, Integer ballNumber);
 
     @Query("""
             select
@@ -34,7 +34,7 @@ public interface BowlRepository extends JpaRepository<Bowl, Integer> {
             group by
             	b.strikerBatterId
             """)
-    List<BatterRuns> getBatterRuns(Integer matchId, Integer inningsId);
+    List<BatterRuns> getBatterRuns(String matchId, String inningsId);
 
     @Query("""
             select
@@ -52,7 +52,7 @@ public interface BowlRepository extends JpaRepository<Bowl, Integer> {
             group by
             	b.strikerBatterId
             """)
-    List<BatterBowls> getBatterBowlsFaced(Integer matchId, Integer inningsId);
+    List<BatterBowls> getBatterBowlsFaced(String matchId, String inningsId);
 
     @Query("""
             select
@@ -70,7 +70,7 @@ public interface BowlRepository extends JpaRepository<Bowl, Integer> {
             	b.strikerBatterId,
             	b.runType
             """)
-    List<BatterRunTypeCount> getBatterRunTypeCounts(int matchId, int inningsId);
+    List<BatterRunTypeCount> getBatterRunTypeCounts(String matchId, String inningsId);
 
     @Query("""
             select
@@ -94,5 +94,5 @@ public interface BowlRepository extends JpaRepository<Bowl, Integer> {
             	)
             group by overNumber
             """)
-    Over getCurrentOverSummary(Integer matchId, Integer inningsId);
+    Over getCurrentOverSummary(String matchId, String inningsId);
 }

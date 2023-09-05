@@ -27,9 +27,9 @@ public class BowlServiceTest {
     @Test
     void shouldReturnCurrentOverSummary() {
 
-        when(bowlRepository.getCurrentOverSummary(1, 1)).thenReturn(new Over(1, 1));
+        when(bowlRepository.getCurrentOverSummary("1", "1")).thenReturn(new Over(1, 1));
 
-        Over currentOverSummary = bowlService.getCurrentOverSummary(1, 1);
+        Over currentOverSummary = bowlService.getCurrentOverSummary("1", "1");
 
         assertThat(currentOverSummary).isEqualTo(new Over(1, 1));
     }
@@ -37,9 +37,9 @@ public class BowlServiceTest {
     @Test
     void shouldReturnCurrentOverSummaryWhenNoBowlsAreBowledInMatchYet() {
 
-        when(bowlRepository.getCurrentOverSummary(1, 1)).thenReturn(null);
+        when(bowlRepository.getCurrentOverSummary("1", "1")).thenReturn(null);
 
-        Over currentOverSummary = bowlService.getCurrentOverSummary(1, 1);
+        Over currentOverSummary = bowlService.getCurrentOverSummary("1", "1");
 
         assertThat(currentOverSummary).isEqualTo(new Over(0, 0));
     }

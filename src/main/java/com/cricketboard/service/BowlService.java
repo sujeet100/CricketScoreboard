@@ -20,7 +20,7 @@ public class BowlService {
         return bowlRepository.save(bowl);
     }
 
-    public Optional<Bowl> getBowl(Integer matchId, Integer inningsId, Integer overNumber, Integer ballNumber) {
+    public Optional<Bowl> getBowl(String matchId, String inningsId, Integer overNumber, Integer ballNumber) {
         return bowlRepository.findByMatchIdAndInningsIdAndOverNumberAndBallNumber(
                 matchId,
                 inningsId,
@@ -28,7 +28,7 @@ public class BowlService {
                 ballNumber);
     }
 
-    public Over getCurrentOverSummary(Integer matchId, Integer inningsId) {
+    public Over getCurrentOverSummary(String matchId, String inningsId) {
         Over currentOverSummary = bowlRepository.getCurrentOverSummary(matchId, inningsId);
         return currentOverSummary == null ? new Over(0, 0) : currentOverSummary;
     }

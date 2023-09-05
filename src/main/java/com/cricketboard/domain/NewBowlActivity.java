@@ -10,11 +10,11 @@ import java.time.LocalDateTime;
 @Setter
 @NoArgsConstructor
 public class NewBowlActivity extends Activity {
-    private Integer matchId;
-    private Integer inningsId;
+    private String matchId;
+    private String inningsId;
     private Bowl bowl;
 
-    public NewBowlActivity(Integer matchId, Integer inningsId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType, Bowl bowl) {
+    public NewBowlActivity(String matchId, String inningsId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType, Bowl bowl) {
         super(startTime, endTime, activityType);
         this.matchId = matchId;
         this.inningsId = inningsId;
