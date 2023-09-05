@@ -15,6 +15,7 @@ import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMock
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.MvcResult;
 
 import java.time.LocalDateTime;
 
@@ -37,7 +38,7 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
-        Bowl bowl = legalBowl().withOverNumber(1).withBallNumber(1).build();
+        Bowl bowl = legalBowl().withOverNumber(0).withBallNumber(1).build();
         bowlRepository.save(bowl);
 
         String runScoredActivity = """
@@ -79,9 +80,10 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                     "activityType": "MATCH_STARTED"
                 }
                 """;
-        this.mockMvc.perform(post("/activities")
+        MvcResult result = this.mockMvc.perform(post("/activities")
                         .contentType(MediaType.APPLICATION_JSON).content(matchStartedActivity))
-                .andExpect(status().isOk());
+                .andExpect(status().isOk()).andReturn();
+
     }
 
     @Test

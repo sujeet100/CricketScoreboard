@@ -36,7 +36,8 @@ public class MatchStartedActivityProcessor implements ActivityProcessor {
         match.setMatchType(matchStartedActivity.getMatchType());
         match.setUmpire1(matchStartedActivity.getUmpire1());
         match.setUmpire2(matchStartedActivity.getUmpire2());
-        matchService.saveMatch(match);
+        Match savedMatch = matchService.saveMatch(match);
+        matchStartedActivity.setMatchId(savedMatch.getMatchId());
         return matchStartedActivity;
 
     }
