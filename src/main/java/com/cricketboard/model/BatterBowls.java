@@ -7,7 +7,7 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class BatterRuns {
+public class BatterBowls {
     private Integer batterId;
-    private Long runs;
+    private Long balls;
 }

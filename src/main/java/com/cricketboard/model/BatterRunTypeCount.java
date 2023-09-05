@@ -7,7 +7,8 @@ import lombok.*;
 @Setter
 @EqualsAndHashCode
 @ToString
-public class BatterRuns {
+public class BatterRunTypeCount {
     private Integer batterId;
-    private Long runs;
+    private RunType runType;
+    private Long count;
 }

@@ -1,10 +1,12 @@
 package com.cricketboard.controller;
 
 import com.cricketboard.AbstractContainerBaseTest;
-import com.cricketboard.model.BallType;
+import com.cricketboard.domain.ActivityType;
+import com.cricketboard.domain.NewBowlActivity;
 import com.cricketboard.model.Bowl;
 import com.cricketboard.repository.BowlRepository;
-import com.cricketboard.repository.MatchRepository;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
@@ -12,9 +14,9 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
 
-import java.sql.Timestamp;
 import java.time.LocalDateTime;
 
+import static com.cricketboard.mother.BowlMother.legalBowl;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -30,24 +32,8 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
-
-        bowlRepository.save(new Bowl(
-                1,
-                1,
-                1,
-                1,
-                1,
-                BallType.LEGAL,
-                222,
-                100.1,
-                999,
-                888,
-                null,
-                null,
-                2000,
-                20003,
-                null,
-                Timestamp.valueOf(LocalDateTime.now())));
+        Bowl bowl = legalBowl().build();
+        bowlRepository.save(bowl);
 
         String runScoredActivity = """
                 {
@@ -69,7 +55,6 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
     @Test
     void shouldCaptureNewMatchStartedActivity() throws Exception {
-
         String matchStartedActivity = """   
                 {
                     "team1Id": "INDN00M",
@@ -88,4 +73,27 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                         .contentType(MediaType.APPLICATION_JSON).content(matchStartedActivity))
                 .andExpect(status().isOk());
     }
+
+    @Test
+    void shouldRecordNewBowlActivity() throws Exception {
+        Bowl bowl = legalBowl().build();
+
+        NewBowlActivity newBowlActivity = new NewBowlActivity(
+                1,
+                1,
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                ActivityType.NEW_BOWL,
+                bowl);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+
+        System.out.println(objectMapper.writeValueAsString(newBowlActivity));
+
+        this.mockMvc.perform(post("/activities")
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(newBowlActivity)))
+                .andExpect(status().isOk());
+    }
+
 }
