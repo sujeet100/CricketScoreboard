@@ -66,7 +66,7 @@ public class NewBowlActivityProcessorTest {
                 bowl);
 
         assertThatThrownBy(() -> newBowlActivityProcessor.processActivity(activity))
-                .hasMessage("Bowl sequence is not correct")
+                .hasMessage("Bowl sequence is not correct, Expected next over: 1, ball: 2 while trying to add ball with over: 1 ball: 3")
                 .isInstanceOf(RuntimeException.class);
     }
 
@@ -74,7 +74,7 @@ public class NewBowlActivityProcessorTest {
     void shouldBeAValidBallSequenceWhenFirstBowlOfMatch() {
         when(bowlService.getCurrentOverSummary("1", "1")).thenReturn(new Over(0, 0));
 
-        Bowl bowl = legalBowl().withOverNumber(2).withBallNumber(1).build();
+        Bowl bowl = legalBowl().withOverNumber(0).withBallNumber(1).build();
         Activity activity = new NewBowlActivity(
                 "1",
                 "1",
