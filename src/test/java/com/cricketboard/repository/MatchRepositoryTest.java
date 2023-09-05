@@ -23,7 +23,7 @@ public class MatchRepositoryTest extends AbstractContainerBaseTest {
         matchRepository.save(match);
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
         String now = dateFormat.format(LocalDateTime.now()).toString();
-        Optional<Match> result = matchRepository.findByMatchId(match.getTeam1Id() + match.getTeam2Id() + now);
+        Optional<Match> result = matchRepository.findByMatchId(match.getTeam1().getId() + match.getTeam2().getId() + now);
         assertThat(result).isPresent();
     }
 }

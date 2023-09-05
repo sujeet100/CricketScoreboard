@@ -2,6 +2,7 @@ package com.cricketboard.repository;
 
 import com.cricketboard.AbstractContainerBaseTest;
 import com.cricketboard.model.Team;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,10 +15,15 @@ public class TeamRepositoryTest extends AbstractContainerBaseTest {
     @Autowired
     private TeamRepository teamRepository;
 
+    @BeforeEach
+    void setUp() {
+        teamRepository.deleteAll();
+    }
+
     @Test
     void shouldReturnTeams() {
-        Team india = new Team("INDN00M", "India");
-        Team australia = new Team("AUSN00M", "Australia");
+        Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
+        Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
         teamRepository.save(india);
         teamRepository.save(australia);
 

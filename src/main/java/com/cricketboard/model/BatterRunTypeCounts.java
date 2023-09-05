@@ -3,21 +3,22 @@ package com.cricketboard.model;
 import lombok.AllArgsConstructor;
 
 import java.util.List;
-import java.util.Optional;
+import java.util.Map;
+import java.util.stream.Collectors;
 
 @AllArgsConstructor
 public class BatterRunTypeCounts {
     private List<BatterRunTypeCount> runTypeCounts;
 
-    public Optional<BatterRunTypeCount> getFours() {
+    public Map<Integer, Long> getFours() {
         return runTypeCounts.stream()
                 .filter(runTypeCount -> runTypeCount.getRunType() == RunType.FOUR)
-                .findFirst();
+                .collect(Collectors.toMap(BatterRunTypeCount::getBatterId, BatterRunTypeCount::getCount));
     }
 
-    public Optional<BatterRunTypeCount> getSixes() {
+    public Map<Integer, Long> getSixes() {
         return runTypeCounts.stream()
                 .filter(runTypeCount -> runTypeCount.getRunType() == RunType.FOUR)
-                .findFirst();
+                .collect(Collectors.toMap(BatterRunTypeCount::getBatterId, BatterRunTypeCount::getCount));
     }
 }

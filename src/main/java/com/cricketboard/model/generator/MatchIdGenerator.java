@@ -13,7 +13,7 @@ public class MatchIdGenerator implements IdentifierGenerator {
     public Object generate(SharedSessionContractImplementor session, Object object) throws HibernateException {
         Match match = (Match) object;
         DateTimeFormatter dateFormat = DateTimeFormatter.ofPattern("yyyyMMdd");
-        return match.getTeam1Id() + match.getTeam2Id() +
-                dateFormat.format((TemporalAccessor) ((Match) object).getDate()).toString();
-     }
+        return match.getTeam1().getId() + match.getTeam2().getId() +
+                dateFormat.format(((Match) object).getDate());
+    }
 }
