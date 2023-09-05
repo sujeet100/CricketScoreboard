@@ -1,5 +1,6 @@
 package com.cricketboard.model;
 
+import com.cricketboard.domain.NewBowlActivity;
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonTypeInfo;
 
@@ -13,8 +14,9 @@ import java.io.Serializable;
 )
 @JsonSubTypes({
         @JsonSubTypes.Type(value = RunScoredActivityDetails.class, name = "RunScoredActivityDetails"),
-        @JsonSubTypes.Type(value = MatchStartedActivityDetails.class, name = "MatchStartedActivity"),
-        @JsonSubTypes.Type(value = NewInningsActivityDetails.class, name = "NewInningsActivity")
+        @JsonSubTypes.Type(value = MatchStartedActivityDetails.class, name = "MatchStartedActivityDetails"),
+        @JsonSubTypes.Type(value = NewInningsActivityDetails.class, name = "NewInningsActivityDetails"),
+        @JsonSubTypes.Type(value = NewBowlActivityDetails.class, name = "NewBowlActivityDetails")
 })
 public interface ActivityDetails extends Serializable {
 }

@@ -1,9 +1,7 @@
 package com.cricketboard.mapper;
 
+import com.cricketboard.domain.*;
 import com.cricketboard.domain.Activity;
-import com.cricketboard.domain.MatchStartedActivity;
-import com.cricketboard.domain.NewInningsActivity;
-import com.cricketboard.domain.RunScoredActivity;
 import com.cricketboard.model.*;
 
 public class ActivityRecordMapper {
@@ -23,6 +21,7 @@ public class ActivityRecordMapper {
             case RUN_SCORED -> getRunScoredActivityDetails(activity);
             case MATCH_STARTED -> getMatchStartedActivityDetails(activity);
             case NEW_INNINGS -> getNewInningsActivityDetails(activity);
+            case NEW_BOWL -> getNewBowlActivityDetails(activity);
         }
         return null;
     }
@@ -55,6 +54,15 @@ public class ActivityRecordMapper {
         return new NewInningsActivityDetails(
                 newInningsActivity.getInningId(),
                 newInningsActivity.getBattingTeamId()
+        );
+    }
+
+    private static NewBowlActivityDetails getNewBowlActivityDetails(Activity activity) {
+        NewBowlActivity newBowlActivity = (NewBowlActivity) activity;
+        return new NewBowlActivityDetails(
+                newBowlActivity.getMatchId(),
+                newBowlActivity.getInningsId(),
+                newBowlActivity.getBowl()
         );
     }
 }

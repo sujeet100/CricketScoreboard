@@ -3,9 +3,12 @@ package com.cricketboard.controller;
 import com.cricketboard.AbstractContainerBaseTest;
 import com.cricketboard.domain.ActivityType;
 import com.cricketboard.domain.NewBowlActivity;
+import com.cricketboard.domain.NewInningsActivity;
 import com.cricketboard.model.Bowl;
+import com.cricketboard.model.Match;
 import com.cricketboard.model.Team;
 import com.cricketboard.repository.BowlRepository;
+import com.cricketboard.repository.MatchRepository;
 import com.cricketboard.repository.TeamRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
@@ -20,6 +23,7 @@ import org.springframework.test.web.servlet.MvcResult;
 import java.time.LocalDateTime;
 
 import static com.cricketboard.mother.BowlMother.legalBowl;
+import static com.cricketboard.mother.MatchMother.legalMatch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
@@ -35,6 +39,9 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
 
     @Autowired
     private TeamRepository teamRepository;
+
+    @Autowired
+    private MatchRepository matchRepository;
 
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
@@ -106,6 +113,32 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
         this.mockMvc.perform(post("/activities")
                         .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(newBowlActivity)))
                 .andExpect(status().isOk());
+    }
+
+    @Test
+    void shouldCaptureNewInningsActivity() throws Exception {
+        Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
+        Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
+        teamRepository.save(india);
+        teamRepository.save(australia);
+        Match match = legalMatch().build();
+        Match savedMatch = matchRepository.save(match);
+        NewInningsActivity newInningsActivity = new NewInningsActivity(
+                savedMatch.getMatchId() + "1",
+                india.getId(),
+                LocalDateTime.now(),
+                LocalDateTime.now(),
+                ActivityType.NEW_INNINGS
+        );
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        objectMapper.registerModule(new JavaTimeModule());
+        System.out.println(objectMapper.writeValueAsString(newInningsActivity));
+
+        MvcResult result = this.mockMvc.perform(post("/activities")
+                        .contentType(MediaType.APPLICATION_JSON).content(objectMapper.writeValueAsString(newInningsActivity)))
+                .andExpect(status().isOk()).andReturn();
+
     }
 
 }
