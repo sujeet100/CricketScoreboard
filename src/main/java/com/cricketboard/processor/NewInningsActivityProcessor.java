@@ -23,6 +23,7 @@ public class NewInningsActivityProcessor implements ActivityProcessor {
         Inning inning = new Inning();
         inning.setInningId(newInningsActivity.getInningId());
         inning.setBattingTeamId(newInningsActivity.getBattingTeamId());
+        inning.setMatchId(newInningsActivity.getMatchId());
         inningService.save(inning);
         activityRecordService.saveActivityRecord(newInningsActivity);
         return newInningsActivity;
