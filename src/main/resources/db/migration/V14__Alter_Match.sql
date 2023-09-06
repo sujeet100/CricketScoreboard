@@ -1,0 +1,1 @@
+alter table match add constraint "match_id_pk" primary key ("match_id");

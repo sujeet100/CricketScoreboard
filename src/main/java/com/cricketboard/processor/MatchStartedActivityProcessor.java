@@ -6,6 +6,7 @@ import com.cricketboard.model.Match;
 import com.cricketboard.repository.TeamRepository;
 import com.cricketboard.service.ActivityRecordService;
 import com.cricketboard.service.MatchService;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -36,8 +37,13 @@ public class MatchStartedActivityProcessor implements ActivityProcessor {
         match.setMatchType(matchStartedActivity.getMatchType());
         match.setUmpire1(matchStartedActivity.getUmpire1());
         match.setUmpire2(matchStartedActivity.getUmpire2());
-        Match savedMatch = matchService.saveMatch(match);
-        matchStartedActivity.setMatchId(savedMatch.getMatchId());
+        try {
+            Match savedMatch = matchService.saveMatch(match);
+            matchStartedActivity.setMatchId(savedMatch.getMatchId());
+        } catch (DataIntegrityViolationException e) {
+            throw new RuntimeException("Match already exist");
+        }
+
         return matchStartedActivity;
 
     }
