@@ -12,11 +12,13 @@ import com.cricketboard.repository.MatchRepository;
 import com.cricketboard.repository.TeamRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.MediaType;
+import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.MvcResult;
 
@@ -43,6 +45,11 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     @Autowired
     private MatchRepository matchRepository;
 
+    @BeforeEach
+    private void clearTeamRepository(){
+        teamRepository.deleteAll();
+    }
+
     @Test
     void shouldCaptureRunScoredActivity() throws Exception {
         Bowl bowl = legalBowl().withOverNumber(0).withBallNumber(1).build();
@@ -65,11 +72,11 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
                         .contentType(MediaType.APPLICATION_JSON).content(runScoredActivity))
                 .andExpect(status().isOk());
     }
-
     @Test
     void shouldCaptureNewMatchStartedActivity() throws Exception {
         Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
         Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
+
         teamRepository.save(india);
         teamRepository.save(australia);
 
@@ -119,13 +126,15 @@ public class ActivityControllerTest extends AbstractContainerBaseTest {
     void shouldCaptureNewInningsActivity() throws Exception {
         Team india = new Team("INDN00M", "India", "IND", "NATIONAL");
         Team australia = new Team("AUSN00M", "Australia", "AUS", "NATIONAL");
-        teamRepository.save(india);
-        teamRepository.save(australia);
         Match match = legalMatch().build();
+        match.setDate(match.getDate().plusDays(1));
+        match.setTeam1(india);
+        match.setTeam2(australia);
         Match savedMatch = matchRepository.save(match);
         NewInningsActivity newInningsActivity = new NewInningsActivity(
                 savedMatch.getMatchId() + "1",
                 india.getId(),
+                savedMatch.getMatchId(),
                 LocalDateTime.now(),
                 LocalDateTime.now(),
                 ActivityType.NEW_INNINGS

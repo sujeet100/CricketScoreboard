@@ -11,10 +11,13 @@ import java.time.LocalDateTime;
 public class NewInningsActivity extends Activity{
     private String inningId;
     private String battingTeamId;
-    public NewInningsActivity(String inningId, String battingTeamId, LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType) {
+    private String matchId;
+    public NewInningsActivity(String inningId, String battingTeamId, String matchId,
+                              LocalDateTime startTime, LocalDateTime endTime, ActivityType activityType) {
         super(startTime, endTime, activityType);
         this.inningId = inningId;
         this.battingTeamId = battingTeamId;
+        this.matchId = matchId;
     }
 
     public NewInningsActivity() { }

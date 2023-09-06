@@ -33,8 +33,9 @@ public class InningServiceTest {
     void shouldSaveActivity() {
 
         Activity newInningsActivity = new NewInningsActivity(
-              "INDN000MAUSN000M20230904",
+              "INDN000MAUSN000M202309041",
                 "INDN000M",
+                "INDN000MAUSN000M20230904",
                 LocalDateTime.now().minusSeconds(10),
                 LocalDateTime.now(),
                 ActivityType.NEW_INNINGS);

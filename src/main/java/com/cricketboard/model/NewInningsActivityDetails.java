@@ -12,4 +12,5 @@ import lombok.Setter;
 public class NewInningsActivityDetails implements ActivityDetails{
     private String inningId;
     private String battingTeamId;
+    private String matchId;
 }

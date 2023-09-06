@@ -53,7 +53,8 @@ public class ActivityRecordMapper {
         NewInningsActivity newInningsActivity = (NewInningsActivity) activity;
         return new NewInningsActivityDetails(
                 newInningsActivity.getInningId(),
-                newInningsActivity.getBattingTeamId()
+                newInningsActivity.getBattingTeamId(),
+                newInningsActivity.getMatchId()
         );
     }
 

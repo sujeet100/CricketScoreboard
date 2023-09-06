@@ -15,6 +15,8 @@ public class Inning {
     @Id
     @Column(name="inning_id")
     private String inningId;
+    @Column(name="match_id")
+    private String matchId;
     @Column(name="batting_team_id")
     private String battingTeamId;
 

@@ -4,11 +4,10 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import lombok.*;
 
-import java.util.Objects;
-
 @Entity
 @Builder(setterPrefix = "with")
 @AllArgsConstructor
+@NoArgsConstructor
 @Getter
 @Setter
 @EqualsAndHashCode
@@ -19,7 +18,4 @@ public final class Team {
     private String name;
     private String abbrevation;
     private String category;
-
-    public Team() {
-    }
 }

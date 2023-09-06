@@ -10,7 +10,8 @@ public class InningsMother {
         DateTimeFormatter date_format = DateTimeFormatter.ofPattern("yyyyMMdd");
         String now = date_format.format(LocalDateTime.now()).toString();
         return Inning.builder()
-                .withInningId("INDN000M" + "AUSN000M" + now)
-                .withBattingTeamId("INDN000M");
+                .withInningId("INDN00M" + "AUSN00M" + now + "2")
+                .withBattingTeamId("INDN00M")
+                .withMatchId("INDN00M" + "AUSN00M" + now);
     }
 }
